@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="hu">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Halloween Party 2026 – Ki a gyilkos?</title>
+    <meta
+      name="description"
+      content="Meghívó a Halloween partinkra – egy éjszaka, egy gyilkos, sok gyanúsított."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Creepster&family=Special+Elite&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #07050c;
+        --orange: #ff7a1a;
+        --blood: #b3122b;
+        --text: #e8e2d6;
+        --card: #120d1c;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        margin: 0;
+        background: radial-gradient(ellipse at top, #1d1230, var(--bg) 70%)
+          fixed;
+        color: var(--text);
+        font:
+          18px/1.6 "Special Elite",
+          Georgia,
+          serif;
+        overflow-x: hidden;
+      }
+      #sky {
+        position: fixed;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 1;
+      }
+      #flash {
+        position: fixed;
+        inset: 0;
+        background: #cfe0ff;
+        opacity: 0;
+        pointer-events: none;
+        z-index: 2;
+        mix-blend-mode: screen;
+      }
+      .moon {
+        position: fixed;
+        top: 5vh;
+        right: 8vw;
+        width: min(18vw, 140px);
+        aspect-ratio: 1;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle at 35% 35%,
+          #fff6d8,
+          #e9d9a0 60%,
+          #b8a566
+        );
+        box-shadow: 0 0 80px 20px rgba(255, 240, 180, 0.25);
+        z-index: 0;
+      }
+      .bat {
+        position: fixed;
+        top: 0;
+        left: -60px;
+        font-size: 28px;
+        z-index: 1;
+        pointer-events: none;
+        animation: fly linear infinite;
+      }
+      @keyframes fly {
+        to {
+          transform: translate(110vw, var(--dy)) rotate(10deg);
+        }
+      }
+      main {
+        position: relative;
+        z-index: 3;
+        max-width: 860px;
+        margin: 0 auto;
+        padding: 0 16px 80px;
+      }
+      section {
+        padding: 56px 0;
+      }
+      h1,
+      h2 {
+        font-family: Creepster, cursive;
+        font-weight: 400;
+        letter-spacing: 0.04em;
+        margin: 0 0 0.4em;
+      }
+      h1 {
+        font-size: clamp(3rem, 13vw, 7rem);
+        color: var(--orange);
+        text-align: center;
+        line-height: 1;
+        text-shadow:
+          0 0 18px rgba(255, 122, 26, 0.7),
+          0 0 60px rgba(179, 18, 43, 0.6);
+        animation: flicker 5s infinite;
+      }
+      h2 {
+        font-size: clamp(2rem, 6vw, 3rem);
+        color: var(--blood);
+        text-shadow: 0 0 12px rgba(179, 18, 43, 0.5);
+      }
+      @keyframes flicker {
+        0%,
+        18%,
+        22%,
+        60%,
+        64%,
+        100% {
+          opacity: 1;
+        }
+        20%,
+        62% {
+          opacity: 0.55;
+        }
+      }
+      .hero {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+      .hero p {
+        max-width: 30em;
+      }
+      .tag {
+        color: var(--blood);
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        font-size: 0.85rem;
+      }
+      #count {
+        display: flex;
+        gap: 14px;
+        justify-content: center;
+        margin: 28px 0;
+        flex-wrap: wrap;
+      }
+      #count div {
+        background: var(--card);
+        border: 1px solid #3a2750;
+        border-radius: 10px;
+        padding: 10px 16px;
+        min-width: 76px;
+      }
+      #count b {
+        display: block;
+        font: 2rem Creepster;
+        color: var(--orange);
+      }
+      .btn {
+        display: inline-block;
+        background: var(--blood);
+        color: #fff;
+        padding: 12px 28px;
+        border-radius: 999px;
+        text-decoration: none;
+        box-shadow: 0 0 22px rgba(179, 18, 43, 0.7);
+        transition: transform 0.2s;
+      }
+      .btn:hover {
+        transform: scale(1.07);
+      }
+      #snd {
+        position: fixed;
+        top: 12px;
+        left: 12px;
+        z-index: 4;
+        font-size: 1.4rem;
+        background: var(--card);
+        border: 1px solid #3a2750;
+        border-radius: 50%;
+        width: 48px;
+        height: 48px;
+        cursor: pointer;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 16px;
+      }
+      .box {
+        background: var(--card);
+        border: 1px solid #3a2750;
+        border-radius: 12px;
+        padding: 18px;
+      }
+      .box h3 {
+        margin: 0 0 6px;
+        color: var(--orange);
+      }
+      footer {
+        position: relative;
+        z-index: 3;
+        text-align: center;
+        padding: 30px;
+        color: #7d7390;
+        font-size: 0.85rem;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .bat,
+        h1 {
+          animation: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <button id="snd" aria-label="Hang be/ki" aria-pressed="true">🔊</button>
+    <canvas id="sky"></canvas>
+    <div id="flash"></div>
+    <div class="moon"></div>
+
+    <main>
+      <section class="hero">
+        <div class="tag">⚰ Titkos meghívó ⚰</div>
+        <h1>Halloween<br />Party 2026</h1>
+        <p>
+          Egy éjszaka. Egy villámlástól megvilágított panel lakás.
+          <strong>Egy gyilkos</strong> köztünk, és nincs sok időd leleplezni.
+        </p>
+        <div id="count" aria-live="off"></div>
+        <a class="btn" href="#details">Nyisd ki a dossziét ↓</a>
+      </section>
+
+      <section id="details">
+        <h2>A részletek</h2>
+        <div class="grid">
+          <div class="box">
+            <h3>📅 Mikor?</h3>
+            2026. október 31., szombat<br />18:00-tól hajnalig
+          </div>
+          <!-- TODO: set the address -->
+          <div class="box">
+            <h3>🏚 Hol?</h3>
+            Titkos
+          </div>
+          <div class="box">
+            <h3>🎭 Dresszkód</h3>
+            Jelmez kötelező! Minél ijesztőbb (vagy gyanúsabb), annál jobb.
+          </div>
+          <div class="box">
+            <h3>🍷 Kaja-pia</h3>
+            Az ételről és italról mi gondoskodunk. A sírba nem vihető át semmi –
+            de innivalót hozhatsz.
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer>© 2026 – Aki nem jön, az lesz a következő áldozat. 🦇</footer>
+
+    <script>
+      // Sound: synthesized with Web Audio. On by default, but browsers only allow audio after the first user gesture.
+      let ac,
+        on = true,
+        wg;
+      const snd = document.getElementById("snd");
+      function start() {
+        if (ac) return;
+        ac = new AudioContext();
+        wg = ac.createGain();
+        wg.gain.value = on ? 0.12 : 0;
+        wg.connect(ac.destination);
+        wind();
+      }
+      ["pointerdown", "keydown"].forEach((ev) =>
+        addEventListener(
+          ev,
+          () => {
+            start();
+            ac.resume();
+          },
+          { capture: true, once: true },
+        ),
+      );
+      snd.onclick = () => {
+        on = !on;
+        if (ac) wg.gain.value = on ? 0.12 : 0;
+        snd.textContent = on ? "🔊" : "🔇";
+        snd.setAttribute("aria-pressed", on);
+      };
+      function noise(sec) {
+        const b = ac.createBuffer(1, ac.sampleRate * sec, ac.sampleRate),
+          d = b.getChannelData(0);
+        for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+        const n = ac.createBufferSource();
+        n.buffer = b;
+        return n;
+      }
+      function wind() {
+        const n = noise(4),
+          f = ac.createBiquadFilter(),
+          l = ac.createOscillator(),
+          lg = ac.createGain();
+        n.loop = true;
+        f.type = "bandpass";
+        f.frequency.value = 350;
+        l.frequency.value = 0.15;
+        lg.gain.value = 150;
+        l.connect(lg).connect(f.frequency);
+        n.connect(f).connect(wg);
+        n.start();
+        l.start();
+      }
+      function thunder() {
+        if (!on || !ac) return;
+        const n = noise(4),
+          f = ac.createBiquadFilter(),
+          g = ac.createGain(),
+          t = ac.currentTime + 0.3 + Math.random() * 1.2;
+        f.type = "lowpass";
+        f.frequency.setValueAtTime(500, t);
+        f.frequency.exponentialRampToValueAtTime(60, t + 3.5);
+        g.gain.setValueAtTime(0.0001, t);
+        g.gain.linearRampToValueAtTime(1, t + 0.05);
+        g.gain.exponentialRampToValueAtTime(0.001, t + 3.8);
+        n.connect(f).connect(g).connect(ac.destination);
+        n.start(t);
+      }
+      // Countdown
+      const target = new Date("2026-10-31T18:00:00"),
+        cd = document.getElementById("count");
+      function tick() {
+        const s = Math.max(0, ((target - Date.now()) / 1000) | 0),
+          v = [
+            [(s / 86400) | 0, "nap"],
+            [((s / 3600) % 24) | 0, "óra"],
+            [((s / 60) % 60) | 0, "perc"],
+            [s % 60, "mp"],
+          ];
+        cd.innerHTML = v.map(([n, l]) => `<div><b>${n}</b>${l}</div>`).join("");
+      }
+      tick();
+      setInterval(tick, 1000);
+
+      // Bats
+      for (let i = 0; i < 6; i++) {
+        const b = document.createElement("div");
+        b.className = "bat";
+        b.textContent = "🦇";
+        b.style.cssText = `top:${Math.random() * 50}vh;animation-duration:${8 + Math.random() * 10}s;animation-delay:${Math.random() * 12}s;--dy:${Math.random() * 20 - 10}vh`;
+        document.body.append(b);
+      }
+
+      // Lightning
+      const cv = document.getElementById("sky"),
+        c = cv.getContext("2d"),
+        fl = document.getElementById("flash");
+      const fit = () => {
+        cv.width = innerWidth;
+        cv.height = innerHeight;
+      };
+      fit();
+      addEventListener("resize", fit);
+      function bolt(x, y, ex, ey, d, pts) {
+        // midpoint displacement recursion
+        if (d == 0) {
+          pts.push([x, y]);
+          return;
+        }
+        const mx = (x + ex) / 2 + (Math.random() - 0.5) * (ey - y) * 0.35,
+          my = (y + ey) / 2;
+        bolt(x, y, mx, my, d - 1, pts);
+        bolt(mx, my, ex, ey, d - 1, pts);
+      }
+      function strike() {
+        const x = Math.random() * cv.width,
+          pts = [];
+        bolt(
+          x,
+          0,
+          x + (Math.random() - 0.5) * 300,
+          cv.height * (0.5 + Math.random() * 0.4),
+          6,
+          pts,
+        );
+        const draw = (w, a) => {
+          c.beginPath();
+          pts.forEach(([px, py], i) =>
+            i ? c.lineTo(px, py) : c.moveTo(px, py),
+          );
+          c.lineWidth = w;
+          c.strokeStyle = `rgba(200,220,255,${a})`;
+          c.stroke();
+        };
+        c.shadowColor = "#8fb4ff";
+        c.shadowBlur = 30;
+        thunder();
+        if (matchMedia("(prefers-reduced-motion:reduce)").matches) {
+          return;
+        } // no flashing
+        [0, 120, 200, 260].forEach((t, i) =>
+          setTimeout(() => {
+            c.clearRect(0, 0, cv.width, cv.height);
+            if (i % 2 == 0) {
+              draw(i ? 2 : 4, 1);
+              draw(1, 1);
+              fl.style.opacity = i ? 0.25 : 0.5;
+            } else fl.style.opacity = 0;
+          }, t),
+        );
+        setTimeout(() => {
+          c.clearRect(0, 0, cv.width, cv.height);
+          fl.style.opacity = 0;
+        }, 420);
+      }
+      (function loop() {
+        setTimeout(
+          () => {
+            strike();
+            loop();
+          },
+          2500 + Math.random() * 7000,
+        );
+      })();
+      addEventListener("click", (e) => {
+        if (!e.target.closest("button,a")) strike();
+      }); // also strike on click
+    </script>
+  </body>
+</html>

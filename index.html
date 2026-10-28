@@ -184,19 +184,6 @@
       .btn:hover {
         transform: scale(1.07);
       }
-      #snd {
-        position: fixed;
-        top: 12px;
-        left: 12px;
-        z-index: 4;
-        font-size: 1.4rem;
-        background: var(--card);
-        border: 1px solid #3a2750;
-        border-radius: 50%;
-        width: 48px;
-        height: 48px;
-        cursor: pointer;
-      }
       .grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -229,7 +216,6 @@
     </style>
   </head>
   <body>
-    <button id="snd" aria-label="Hang be/ki" aria-pressed="true">🔊</button>
     <canvas id="sky"></canvas>
     <div id="flash"></div>
     <div class="moon"></div>
@@ -273,35 +259,14 @@
     <footer>© 2026 – Aki nem jön, az lesz a következő áldozat. 🦇</footer>
 
     <script>
-      // Sound: synthesized with Web Audio. On by default, but browsers only allow audio after the first user gesture.
-      let ac,
-        on = true,
-        wg;
-      const snd = document.getElementById("snd");
-      function start() {
-        if (ac) return;
-        ac = new AudioContext();
+      // Sound: synthesized with Web Audio, always on. Browsers keep audio suspended until the first user gesture, so resume then.
+      const ac = new AudioContext(),
         wg = ac.createGain();
-        wg.gain.value = on ? 0.12 : 0;
-        wg.connect(ac.destination);
-        wind();
-      }
+      wg.gain.value = 0.12;
+      wg.connect(ac.destination);
       ["pointerdown", "keydown"].forEach((ev) =>
-        addEventListener(
-          ev,
-          () => {
-            start();
-            ac.resume();
-          },
-          { capture: true, once: true },
-        ),
+        addEventListener(ev, () => ac.resume(), { capture: true, once: true }),
       );
-      snd.onclick = () => {
-        on = !on;
-        if (ac) wg.gain.value = on ? 0.12 : 0;
-        snd.textContent = on ? "🔊" : "🔇";
-        snd.setAttribute("aria-pressed", on);
-      };
       function noise(sec) {
         const b = ac.createBuffer(1, ac.sampleRate * sec, ac.sampleRate),
           d = b.getChannelData(0);
@@ -326,7 +291,6 @@
         l.start();
       }
       function thunder() {
-        if (!on || !ac) return;
         const n = noise(4),
           f = ac.createBiquadFilter(),
           g = ac.createGain(),
@@ -340,6 +304,8 @@
         n.connect(f).connect(g).connect(ac.destination);
         n.start(t);
       }
+      wind();
+
       // Countdown
       const target = new Date("2026-10-31T18:00:00"),
         cd = document.getElementById("count");
